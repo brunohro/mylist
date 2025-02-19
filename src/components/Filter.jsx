@@ -1,4 +1,4 @@
-const Filter = ({filter, setFilter}) => {
+const Filter = ({filter, setFilter, setSort}) => {
   return (
     <div className="filter">
         <h2>Filtrar: </h2>
@@ -13,8 +13,8 @@ const Filter = ({filter, setFilter}) => {
             </div>
             <div>
                 <p>Ordem alfabética:</p>
-                <button>ASC</button>
-                <button>DES</button>
+                <button onClick={()=> setSort("Asc")}>ASC</button>
+                <button onClick={()=> setSort("Desc")}>DES</button>
             </div>
         </div>
       
