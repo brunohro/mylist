@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css';
 import Todo from './components/Todo';
 import TodoForm from './components/TodoForm';
+import Search from './components/Search';
 
 
 function App() {
@@ -36,12 +37,14 @@ function App() {
         isCompleted: false,
       },
       ];
-      setTodos(newTodos);
+    setTodos(newTodos);
   };
+
+  const [search, setSearch] = useState("");
 
   const removeTodo = (id) => {
     const newTodos = [...todos] // coleta todos os meus Todos
-    const filteredTodos = newTodos.filter((todo) => todo.id !== id ? todo: null); // verifica os todos
+    const filteredTodos = newTodos.filter((todo) => todo.id !== id ? todo : null); // verifica os todos
     setTodos(filteredTodos); // atualiza a lista de todos
   }
 
@@ -54,12 +57,16 @@ function App() {
   return (
     <div className="app">
       <h1> Lista de Tarefas </h1>
+      <Search search={search} setSearch={setSearch} />
       <div className="todo-list">
-        {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} removeTodo={removeTodo} completeTodo={completeTodo}/>
-        ))}
+        {todos.
+          filter(
+            (todo) => todo.text.toLowerCase().includes(search.toLocaleLowerCase()) // Se eu tiver caracteres igual os do título 
+          ).map((todo) => (
+            <Todo key={todo.id} todo={todo} removeTodo={removeTodo} completeTodo={completeTodo} />
+          ))}
       </div>
-      <TodoForm addTodo={addTodo}/>
+      <TodoForm addTodo={addTodo} />
     </div>
   )
 }
